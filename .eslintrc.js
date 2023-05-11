@@ -1,8 +1,8 @@
 module.exports = {
   env: {
     node: true,
-    commonjs: true,
-    es2021: true,
+    browser: true,
+    es6: true,
     'jest/globals': true,
   },
   extends: ['eslint:recommended', 'plugin:react/recommended'],
@@ -27,3 +27,4 @@ module.exports = {
     'react/prop-types': 0,
   },
 }
+
