@@ -60,7 +60,7 @@ processes = []
   [[services.script_checks]]
     command       = "/app/health_check.sh"
     args          = []
-    grace_period  = "5s"
-    interval      = "10s"
+    grace_period  = 15000
+    interval      = 10000
     restart_limit = 0
-    timeout       = "3s"
+    timeout       = 2000
