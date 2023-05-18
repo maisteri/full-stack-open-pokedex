@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - master
-      # note that your "main" branch might be called main instead of master
 
 jobs:
   hello_world_job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Say hello
         run: |
@@ -17,3 +16,4 @@ jobs:
         run: date
       - name: Dir content
         run: ls -la
+
