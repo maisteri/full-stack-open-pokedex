@@ -1,65 +1,58 @@
-# fly.toml file generated for pokemon-app on 2023-05-12T12:37:09+03:00
+# fly.toml app configuration file generated for pokemon-app on 2023-05-25T18:55:05+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
 app = "pokemon-app"
+primary_region = "arn"
 kill_signal = "SIGINT"
-kill_timeout = 5
-processes = []
+kill_timeout = "5s"
 
-[env]
-  PORT = "5000"
-
-[deploy]
-  release_command = "npm run build"
-
-[processes]
-  app = "node app.js"
+[experimental]
+  auto_rollback = true
 
 [build]
   [build.args]
     NODE_VERSION = "16.20.0"
 
-[experimental]
-  auto_rollback = true
+[deploy]
+  release_command = "npm run build"
+
+[env]
+  PORT = "5000"
+
+[processes]
+  app = "node app.js"
 
 [[services]]
-  internal_port = 5000
-  min_machines_running = 0
-  processes = ["app"]
   protocol = "tcp"
+  internal_port = 5000
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
   [services.concurrency]
+    type = "connections"
     hard_limit = 25
     soft_limit = 20
-    type = "connections"
-
-  [[services.ports]]
-    force_https = true
-    handlers = ["http"]
-    port = 80
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
 
   [[services.tcp_checks]]
-    grace_period = "1s"
     interval = "15s"
-    restart_limit = 0
     timeout = "2s"
+    grace_period = "1s"
+    restart_limit = 0
 
   [[services.http_checks]]
-    interval = 10000
+    interval = "10s"
+    timeout = "2s"
     grace_period = "15s"
+    restart_limit = 0
     method = "get"
     path = "/health"
     protocol = "http"
-    restart_limit = 0
-    timeout = 2000
-    tls_skip_verify = false
-    [services.http_checks.headers]
-
-  [[services.script_checks]]
-    command       = "/app/health_check.sh"
-    grace_period  = 15000
-    interval      = 10000
-    restart_limit = 0
-    timeout       = 2000
