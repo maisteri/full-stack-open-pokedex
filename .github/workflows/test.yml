@@ -23,24 +23,18 @@ jobs:
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
-      - name: Test Success
+      - name: Deploy Success
         uses: rjstone/discord-webhook-notify@v1
-        if: success()
+        if: failure()
         with:
           severity: info
           details: Test Succeeded!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Test Failure
+      - name: Deploy Failure
         uses: rjstone/discord-webhook-notify@v1
-        if: failure()
+        if: always()
         with:
           severity: error
+          description: commit ${{github.event.commits[0].url}} by ${{github.event.commits[0].committer.username}} broke the build!
           details: Test Failed!
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Test Cancelled
-        uses: rjstone/discord-webhook-notify@v1
-        if: cancelled()
-        with:
-          severity: warn
-          details: Test Cancelled!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
