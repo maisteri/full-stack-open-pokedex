@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for pokemon-app on 2023-05-25T18:55:05+03:00
+# fly.toml app configuration file generated for pokemon-app on 2023-05-26T11:06:09+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -10,10 +10,6 @@ kill_timeout = "5s"
 
 [experimental]
   auto_rollback = true
-
-[build]
-  [build.args]
-    NODE_VERSION = "16.20.0"
 
 [deploy]
   release_command = "npm run build"
