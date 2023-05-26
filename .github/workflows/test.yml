@@ -25,14 +25,14 @@ jobs:
         run: echo "$COMMIT_MESSAGES"
       - name: Deploy Success
         uses: rjstone/discord-webhook-notify@v1
-        if: failure()
+        if: success()
         with:
           severity: info
-          details: Test Succeeded!
+          text: A new version of the Pokedex deployed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Deploy Failure
         uses: rjstone/discord-webhook-notify@v1
-        if: always()
+        if: failure()
         with:
           severity: error
           description: commit ${{github.event.commits[0].url}} by ${{github.event.commits[0].committer.username}} broke the build!
