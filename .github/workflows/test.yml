@@ -29,6 +29,7 @@ jobs:
         with:
           severity: info
           text: A new version of the Pokedex deployed
+          description: Nothing to report.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Deploy Failure
         uses: rjstone/discord-webhook-notify@v1
