@@ -1,9 +1,9 @@
 name: This is a scheduled healthcheck for the App
 
 on:
-  push:
-    branches:
-      - new-feature-z
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: '15 11 * * *'
 
 jobs:
   healthcheck_for_pokeapp:
